@@ -1,0 +1,14 @@
+<h2>Dashboard</h2>
+<a href="/gerar-link">Gerar novo link de formulário</a><br><br>
+
+<h3>Respostas recebidas:</h3>
+{% for r in respostas %}
+  <p>
+    <strong>Resposta:</strong><br>
+    {{ r[2] }}<br>{{ r[3] }}<br>{{ r[4] }}<br>{{ r[5] }}<br>{{ r[6] }}<br>
+  </p>
+  <hr>
+{% endfor %}
+<a href="/logout">Sair</a>
+<a href="/trocar-senha">Trocar Senha</a><br><br>
+
