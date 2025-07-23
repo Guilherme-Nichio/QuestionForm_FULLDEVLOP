@@ -16,12 +16,39 @@ def init_db():
                         id TEXT PRIMARY KEY,
                         user_id INTEGER,
                         FOREIGN KEY(user_id) REFERENCES usuarios(id))''')
+        
         c.execute('''CREATE TABLE IF NOT EXISTS respostas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             formulario_id TEXT,
             nome TEXT,
             telefone TEXT,
-            r1 TEXT, r2 TEXT, r3 TEXT, r4 TEXT, r5 TEXT,
+    
+            S1Q1 CHAR,
+            S1Q2 CHAR,
+            S1Q3 CHAR,
+            S1Q4 CHAR,
+            S1Q5 CHAR,
+                  
+            S2Q1 CHAR,
+            S2Q2 CHAR,
+            S2Q3 CHAR,
+            S2Q4 CHAR,
+                  
+            S3Q1 CHAR,
+            S3Q2 CHAR,
+            S3Q3 CHAR,
+            S3Q4 CHAR,
+                  
+            S4Q1 CHAR,
+            S4Q2 CHAR,
+            S4Q3 CHAR,
+            S4Q4 CHAR,
+            S4Q5 CHAR,
+            S4Q6 CHAR,
+                  
+            S5Q1 CHAR,
+            S5Q2 CHAR,
+            S5Q3 CHAR,
             FOREIGN KEY(formulario_id) REFERENCES formularios(id)
         )''')
 
