@@ -173,7 +173,7 @@ def formulario_etapa1(form_id):
             # já existe uma resposta, perguntar se deseja atualizar 
             return redirect(f'/formulario/{form_id}/confirmar-substituicao') ## caso vamos que já existe uma resposta identica ou seja como o mesmo ID de formulario , o mesmo nome e o mesmo telefone ele vai me perguntar se eu desejo substituir a resposta
         else:
-            return redirect(f'/formulario/{form_id}/etapa2') # caso nao haja resposta ele manda apra uma pagina da etapa 2
+            return redirect(f'/formulario/{form_id}/Session1') # caso nao haja resposta ele manda apra uma pagina da etapa 2
     ## SUBSTITUIR POR TEMPLATE DA ETAPA 1
     return '''
         <h2>Identifique-se</h2>
@@ -189,7 +189,7 @@ def confirmar_substituicao(form_id):
     if request.method == 'POST':
         acao = request.form.get('acao')
         if acao == 'sim':
-            return redirect(f'/formulario/{form_id}/etapa2') # caso a pessoa queira substituir ela vai pra etapa 2
+            return redirect(f'/formulario/{form_id}/Session1') # caso a pessoa queira substituir ela vai pra etapa 2
         else:
             session.clear() # caso nao ele limpa a sessao que é as informacoes fornecidas na etapa 1 e fala que anda foi alterado
             return "Resposta não foi alterada."
@@ -234,6 +234,36 @@ def formulario_etapa2(form_id):
         return "<h3>Resposta atualizada com sucesso!</h3>"
 
     return render_template('form.html') ## rendeniza o formulario 
+
+## Agora apartir daqui vai o formulario de verdade 
+# ele continua no mesmo form ID e muda o final do link dizendo que chegou na sessao 2
+@app.route('/formulario/<form_id>/Session1', methods=['GET', 'POST']) 
+def formulario_SessionOne(form_id):
+    if request.method == 'POST':
+        nome = session.get('nome') ## permanece o nome de usuario da sessao e o telefone
+        telefone = session.get('telefone')
+        r1 = request.form['S1R1'] ## quando o formulario receber um submit , ele me retorna essas respostas aqui e guarda elas em uma variavel
+        r2 = request.form['S1R2']
+        r3 = request.form['S1R3']
+        r4 = request.form['S1R4']
+        r5 = request.form['S1R5']
+
+        with sqlite3.connect('db.sqlite3') as conn:
+            c = conn.cursor() 
+            # Deleta resposta anterior (se houver)
+            c.execute("""
+                DELETE FROM respostas
+                WHERE formulario_id=? AND nome=? AND telefone=?
+            """, (form_id, nome, telefone)) ## se caso tiver uma resposta ele exclui se nao ele deixa quieto
+
+
+
+        print(r1,r2,r3,r5,r4)
+
+    return render_template('sectionOne.html') ## rendeniza o formulario 
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
