@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body>
+    <h2>Formulário</h2>
+    <form method="post">
+        <div class="part1">
+            <h2 class="title">Seção 1 - Nível de óleo</h2>
+            <p>Pele Oleosa (O) x Seca (D)</p>
+
+            <!-- Questão 1 -->
+            <h3>1. No dia-a-dia você sente necessidade de hidratar a sua pele?</h3>
+            <div class="radio">
+                <input type="radio" id="IDS1R1" name="S1R1" value="a">
+                <label for="IDS1R1">A. Preciso hidratar com cremes pesados ou óleos várias vezes ao dia.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R2" name="S1R1" value="b">
+                <label for="IDS1R2">B. Faço 2x ao dia com hidratantes mais cremosos.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R3" name="S1R1" value="c">
+                <label for="IDS1R3">C. Apenas 1x ao dia com hidratante mais leve OU não uso nada.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R4" name="S1R1" value="d">
+                <label for="IDS1R4">D. Não sinto necessidade de hidratar, minha pele é muito oleosa.</label>
+            </div>
+
+            <!-- Questão 2 -->
+            <h3>2. Qual opção descreve melhor sua pele do rosto?</h3>
+            <div class="radio">
+                <input type="radio" id="IDS1R5" name="S1R2" value="a">
+                <label for="IDS1R5">A. Muito seca, racha e descama às vezes.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R6" name="S1R2" value="b">
+                <label for="IDS1R6">B. Seca, chega a ficar descamando.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R7" name="S1R2" value="c">
+                <label for="IDS1R7">C. Oleosa, forma óleo ao longo do dia.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R8" name="S1R2" value="d">
+                <label for="IDS1R8">D. Muito oleosa, dá pra fritar ovo em algumas áreas.</label>
+            </div>
+
+            <!-- Questão 3 -->
+            <h3>3. A oleosidade da sua pele te incomoda?</h3>
+            <div class="radio">
+                <input type="radio" id="IDS1R9" name="S1R3" value="a">
+                <label for="IDS1R9">A. Nunca me incomodou.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R10" name="S1R3" value="b">
+                <label for="IDS1R10">B. Raramente me incomoda.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R11" name="S1R3" value="c">
+                <label for="IDS1R11">C. Me incomoda com frequência.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R12" name="S1R3" value="d">
+                <label for="IDS1R12">D. Sempre, praticamente todo dia.</label>
+            </div>
+
+            <!-- Questão 4 -->
+            <h3>4. O ressecamento da sua pele te incomoda?</h3>
+            <div class="radio">
+                <input type="radio" id="IDS1R13" name="S1R4" value="a">
+                <label for="IDS1R13">A. Sempre, até maquiagem fica ruim.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R14" name="S1R4" value="b">
+                <label for="IDS1R14">B. Com frequência, até no verão.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R15" name="S1R4" value="c">
+                <label for="IDS1R15">C. Quase não me incomoda.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R16" name="S1R4" value="d">
+                <label for="IDS1R16">D. Nunca me incomodou.</label>
+            </div>
+
+            <!-- Questão 5 -->
+            <h3>5. Você percebe seus poros muito dilatados?</h3>
+            <div class="radio">
+                <input type="radio" id="IDS1R17" name="S1R5" value="a">
+                <label for="IDS1R17">A. Não percebo que tenho, não me incomodam.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R18" name="S1R5" value="b">
+                <label for="IDS1R18">B. Poucos poros pequenos na “zona T”.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R19" name="S1R5" value="c">
+                <label for="IDS1R19">C. Poros bem aparentes no nariz ou outras áreas.</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="IDS1R20" name="S1R5" value="d">
+                <label for="IDS1R20">D. Muitos poros grandes, me incomodam com cravos.</label>
+            </div>
+        </div>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
