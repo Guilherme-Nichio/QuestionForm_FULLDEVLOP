@@ -236,33 +236,119 @@ def formulario_etapa2(form_id):
     return render_template('form.html') ## rendeniza o formulario 
 
 ## Agora apartir daqui vai o formulario de verdade 
-# ele continua no mesmo form ID e muda o final do link dizendo que chegou na sessao 2
+# SESSION 1
 @app.route('/formulario/<form_id>/Session1', methods=['GET', 'POST']) 
 def formulario_SessionOne(form_id):
+    if not session.get('nome'):  # ou session.get('r1') is None
+        return redirect(f'/formulario/{form_id}/etapa1')
     if request.method == 'POST':
-        nome = session.get('nome') ## permanece o nome de usuario da sessao e o telefone
+        session['r1'] = request.form['S1R1']
+        session['r2'] = request.form['S1R2']
+        session['r3'] = request.form['S1R3']
+        session['r4'] = request.form['S1R4']
+        session['r5'] = request.form['S1R5']
+        return redirect(f'/formulario/{form_id}/Session2')
+    return render_template('sectionOne.html')
+
+# SESSION 2
+@app.route('/formulario/<form_id>/Session2', methods=['GET', 'POST']) 
+def formulario_SessionTwo(form_id):
+    if not session.get('nome'):  # ou session.get('r1') is None
+        return redirect(f'/formulario/{form_id}/etapa1')    
+    if request.method == 'POST':
+        session['r6'] = request.form['S2R1']
+        session['r7'] = request.form['S2R2']
+        session['r8'] = request.form['S2R3']
+        session['r9'] = request.form['S2R4']
+        return redirect(f'/formulario/{form_id}/Session3')
+    return render_template('sectionTwo.html')
+
+# SESSION 3
+@app.route('/formulario/<form_id>/Session3', methods=['GET', 'POST']) 
+def formulario_SessionThree(form_id):
+    if not session.get('nome'):  # ou session.get('r1') is None
+        return redirect(f'/formulario/{form_id}/etapa1')
+    if request.method == 'POST':
+        session['r10'] = request.form['S3R1']
+        session['r11'] = request.form['S3R2']
+        session['r12'] = request.form['S3R3']
+        session['r13'] = request.form['S3R4']
+        return redirect(f'/formulario/{form_id}/Session4')
+    return render_template('sectionThree.html')
+
+# SESSION 4
+@app.route('/formulario/<form_id>/Session4', methods=['GET', 'POST']) 
+def formulario_SessionFour(form_id):
+    if not session.get('nome'):  # ou session.get('r1') is None
+        return redirect(f'/formulario/{form_id}/etapa1')
+    if request.method == 'POST':
+        session['r14'] = request.form['S4R1']
+        session['r15'] = request.form['S4R2']
+        session['r16'] = request.form['S4R3']
+        session['r17'] = request.form['S4R4']
+        session['r18'] = request.form['S4R5']
+        session['r19'] = request.form['S4R6']  # Corrigi: estava duplicado 'S4R5'
+        return redirect(f'/formulario/{form_id}/Session5')
+    return render_template('sectionFour.html')
+
+# SESSION 5 (final)
+@app.route('/formulario/<form_id>/Session5', methods=['GET', 'POST']) 
+def formulario_SessionFive(form_id):
+    if not session.get('nome'):  # ou session.get('r1') is None
+        return redirect(f'/formulario/{form_id}/etapa1')
+    if request.method == 'POST':
+        session['r20'] = request.form['S5R1']
+        session['r21'] = request.form['S5R2']
+        session['r22'] = request.form['S5R3']
+
+        nome = session.get('nome')
         telefone = session.get('telefone')
-        r1 = request.form['S1R1'] ## quando o formulario receber um submit , ele me retorna essas respostas aqui e guarda elas em uma variavel
-        r2 = request.form['S1R2']
-        r3 = request.form['S1R3']
-        r4 = request.form['S1R4']
-        r5 = request.form['S1R5']
 
-        with sqlite3.connect('db.sqlite3') as conn:
-            c = conn.cursor() 
-            # Deleta resposta anterior (se houver)
-            c.execute("""
-                DELETE FROM respostas
-                WHERE formulario_id=? AND nome=? AND telefone=?
-            """, (form_id, nome, telefone)) ## se caso tiver uma resposta ele exclui se nao ele deixa quieto
+        respostas = [session.get(f'r{i}') for i in range(1, 23)]
+                # Verifica se todas as respostas foram preenchidas
+        if None in respostas:
+            return redirect(f'/formulario/{form_id}/Session1')
 
-
-
-        print(r1,r2,r3,r5,r4)
-
-    return render_template('sectionOne.html') ## rendeniza o formulario 
+        resultado = calcular_tipo_pele(respostas)
+        print(f"Usuário: {nome}, Telefone: {telefone}")
+        print("Respostas:", respostas)
+        # Exibe resultado final
+        return render_template('result.html', resultado=resultado)
+        # Aqui você pode salvar no banco de dados se quiser
+      
+    return render_template('sectionFive.html')
 
 
+
+def calcular_tipo_pele(respostas):
+    # Converte letras a/b/c/d em números
+    pontuacoes = [ord(r.lower()) - ord('a') + 1 for r in respostas]  # a=1, b=2...
+
+    # Divisões conforme os grupos do gabarito
+    O_D = sum(pontuacoes[0:5])     # r1 a r5
+    S_R = sum(pontuacoes[5:9])     # r6 a r9
+    P_N = sum(pontuacoes[9:13])    # r10 a r13
+    W_T = sum(pontuacoes[13:19])   # r14 a r19
+    hidratação = pontuacoes[19:22] # r20 a r22 (para contar letras A e B)
+
+    # Resultados dos eixos
+    tipo_OD = "Oleosa (O)" if O_D >= 13 else "Seca (D)"
+    tipo_SR = "Sensível (S)" if S_R >= 9 else "Resistente (R)"
+    tipo_PN = "Pigmentada (P)" if P_N >= 11 else "Não-pigmentada (N)"
+    tipo_WT = "Enrugada (W)" if W_T >= 15 else "Firme (T)"
+
+    # Hidratação
+    qtd_a = hidratação.count(1)
+    qtd_b = hidratação.count(2)
+    tipo_hidratacao = "Desidratada" if qtd_a > qtd_b else "Equilibrada"
+
+    return {
+        'O x D': tipo_OD,
+        'S x R': tipo_SR,
+        'P x N': tipo_PN,
+        'W x T': tipo_WT,
+        'Hidratação': tipo_hidratacao
+    }
 
 
 if __name__ == '__main__':
