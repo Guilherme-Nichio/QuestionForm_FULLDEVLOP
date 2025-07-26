@@ -1,57 +1,67 @@
-<h2>Formulário</h2>
-<form method="post">
-    <div class="part5">
-        <h2 class="title">
-            Seção 1 - Saiba se a pele está DESIDRATADA ou não
-        </h2>
-        <p>Esta parte avalia o nível de água. Assinale a que for MAIS verdadeira.</p>
+<!DOCTYPE html>
+<html>
 
-        <!-- Questao 1-->
-        <h3 class="question">
-            1. Atualmente quando você usa o seu sabonete comum, como a pele do seu rosto fica?
-        </h3>
+<head>
+    <link rel="stylesheet" href="desing.css">
+    <title>Formulário 5</title>
+</head>
+    <body>
+        <form method="post">
+            <div class="part5">
+                <h2 class="title">
+                    Seção 1 - Saiba se a pele está DESIDRATADA ou não
+                </h2>
+                <div class="sub-title">
+                <p>Esta parte avalia o nível de água. Assinale a que for MAIS verdadeira.</p>
+                </div>
+                
+                <!-- Questao 1-->
+            <div class="box">
+                <h3 class="question">
+                    1. Atualmente quando você usa o seu sabonete comum, como a pele do seu rosto fica?
+                </h3>
 
-        
-        <div class="radio">
-            <input type="radio" id="IDS5R1" name="S5R1"/>
-            <label for="IDS5R1">A. Fica com uma sensação de repuxamento (tensionamento), craquelada.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS5R2" name="S5R2"/>
-            <label for="IDS5R2">B. Fica bem adequada, confortável OU Não sei, não sinto nada.</label>
-        </div>
+                
+                <div class="radio">
+                    <input type="radio" id="IDS5R1" name="S5R1"/>
+                    <label for="IDS5R1">A. Fica com uma sensação de repuxamento (tensionamento), craquelada.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS5R2" name="S5R2"/>
+                    <label for="IDS5R2">B. Fica bem adequada, confortável OU Não sei, não sinto nada.</label>
+                </div>
+            </div>
 
+                <!-- Questao 2-->
+            <div class="box">
+                <h3 class="question">
+                    2. No dia-a-dia, caso você não aplique hidratante, como você sente a pele do rosto?
+                </h3>
+                <div class="radio">
+                    <input type="radio" id="IDS5R3" name="S5R3"/>
+                    <label for="IDS5R3">A. Sinto minha pele opaca, sem viço, pode chegar até a ficar desconfortável repuxando e/ou sinto sim uma necessidade de usar o hidratante.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS5R4" name="S5R4"/>
+                    <label for="IDS5R4">B. Não sinto necessidade alguma de hidratante, fica bem equilibrada durante o dia OU Não sei, fica normal, não sinto nada.</label>
+                </div>
+            </div>
 
-        <!-- Questao 2-->
-        <h3 class="question">
-            2. No dia-a-dia, caso você não aplique hidratante, como você sente a pele do rosto?
-        </h3>
-        <div class="radio">
-            <input type="radio" id="IDS5R3" name="S5R3"/>
-            <label for="IDS5R3">A. Sinto minha pele opaca, sem viço, pode chegar até a ficar desconfortável repuxando e/ou sinto sim uma necessidade de usar o hidratante.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS5R4" name="S5R4"/>
-            <label for="IDS5R4">B. Não sinto necessidade alguma de hidratante, fica bem equilibrada durante o dia OU Não sei, fica normal, não sinto nada.</label>
-        </div>
-
-
-        <!-- Questao 3-->
-        <h3 class="question">
-            3. Em geral, você sente que sua pele fica tensionada, repuxando, opaca, sem viço? Isso te incomoda?
-        </h3>
-        <div class="radio">
-            <input type="radio" id="IDS5R5" name="S5R5"/>
-            <label for="IDS5R5">A. Sinto com frequência, e por isso me incomoda sim!</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS5R6" name="S5R6"/>
-            <label for="IDS5R6">B. Não me incomoda, não costumo sentir isso.</label>
-        </div>
-
-
-
-
-    </div>
-  <button type="submit">Enviar</button>
-</form>
+                <!-- Questao 3-->
+            <div class="box">
+                <h3 class="question">
+                    3. Em geral, você sente que sua pele fica tensionada, repuxando, opaca, sem viço? Isso te incomoda?
+                </h3>
+                <div class="radio">
+                    <input type="radio" id="IDS5R5" name="S5R5"/>
+                    <label for="IDS5R5">A. Sinto com frequência, e por isso me incomoda sim!</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS5R6" name="S5R6"/>
+                    <label for="IDS5R6">B. Não me incomoda, não costumo sentir isso.</label>
+                </div>
+            </div>
+        <button class="botao-estiloso" type="submit">Enviar</button>
+        </form>
+    </body>
+</html>
