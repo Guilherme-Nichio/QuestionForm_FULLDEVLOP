@@ -49,6 +49,10 @@ def init_db():
             S5Q1 CHAR,
             S5Q2 CHAR,
             S5Q3 CHAR,
+            O_D INTEGER,
+            S_R INTEGER,
+            P_N INTEGER,
+            W_T INTEGER,
             FOREIGN KEY(formulario_id) REFERENCES formularios(id)
         )''')
 
@@ -292,34 +296,82 @@ def formulario_SessionFour(form_id):
     return render_template('sectionFour.html')
 
 # SESSION 5 (final)
+
 @app.route('/formulario/<form_id>/Session5', methods=['GET', 'POST']) 
 def formulario_SessionFive(form_id):
-    if not session.get('nome'):  # ou session.get('r1') is None
-        return redirect(f'/formulario/{form_id}/etapa1')
     if request.method == 'POST':
         session['r20'] = request.form['S5R1']
         session['r21'] = request.form['S5R2']
         session['r22'] = request.form['S5R3']
 
-        nome = session.get('nome')
-        telefone = session.get('telefone')
-
-        respostas = [session.get(f'r{i}') for i in range(1, 23)]
-                # Verifica se todas as respostas foram preenchidas
+        respostas = [session.get(f"r{i}") for i in range(1, 23)]
         if None in respostas:
             return redirect(f'/formulario/{form_id}/Session1')
 
         resultado = calcular_tipo_pele(respostas)
-        print(f"Usuário: {nome}, Telefone: {telefone}")
-        print("Respostas:", respostas)
-        # Exibe resultado final
+
+        nome = session.get('nome')
+        telefone = session.get('telefone')
+
+        # Conecta ao banco e insere os dados
+        conn = sqlite3.connect('db.sqlite3')  # Altere para o nome real
+        c = conn.cursor()
+
+        c.execute('''
+            INSERT INTO respostas (
+                formulario_id, nome, telefone,
+                S1Q1, S1Q2, S1Q3, S1Q4, S1Q5,
+                S2Q1, S2Q2, S2Q3, S2Q4,
+                S3Q1, S3Q2, S3Q3, S3Q4,
+                S4Q1, S4Q2, S4Q3, S4Q4, S4Q5, S4Q6,
+                S5Q1, S5Q2, S5Q3,
+                O_D, S_R, P_N, W_T
+            ) VALUES (?, ?, ?,
+                      ?, ?, ?, ?, ?,
+                      ?, ?, ?, ?,
+                      ?, ?, ?, ?,
+                      ?, ?, ?, ?, ?, ?,
+                      ?, ?, ?,
+                      ?, ?, ?, ?)
+        ''', (
+            form_id, nome, telefone,
+            *respostas,  # As 22 respostas (r1 a r22)
+            resultado_valor(resultado['O x D']),
+            resultado_valor(resultado['S x R']),
+            resultado_valor(resultado['P x N']),
+            resultado_valor(resultado['W x T'])
+        ))
+
+        conn.commit()
+        conn.close()
+
         return render_template('result.html', resultado=resultado)
-        # Aqui você pode salvar no banco de dados se quiser
-      
+
     return render_template('sectionFive.html')
 
+def resultado_valor(resultado_str):
+    """Converte tipo de pele em número para salvar no banco"""
+    if "Oleosa" in resultado_str or "O" in resultado_str:
+        return 1
+    if "Seca" in resultado_str or "D" in resultado_str:
+        return 2
+    if "Sensível" in resultado_str or "S" in resultado_str:
+        return 1
+    if "Resistente" in resultado_str or "R" in resultado_str:
+        return 2
+    if "Pigmentada" in resultado_str or "P" in resultado_str:
+        return 1
+    if "Não-pigmentada" in resultado_str or "N" in resultado_str:
+        return 2
+    if "Enrugada" in resultado_str or "W" in resultado_str:
+        return 1
+    if "Firme" in resultado_str or "T" in resultado_str:
+        return 2
+    return None
 
 
+
+# funcao para calcular o tipo de pele
 def calcular_tipo_pele(respostas):
     # Converte letras a/b/c/d em números
     pontuacoes = [ord(r.lower()) - ord('a') + 1 for r in respostas]  # a=1, b=2...
@@ -336,7 +388,7 @@ def calcular_tipo_pele(respostas):
     tipo_SR = "Sensível (S)" if S_R >= 9 else "Resistente (R)"
     tipo_PN = "Pigmentada (P)" if P_N >= 11 else "Não-pigmentada (N)"
     tipo_WT = "Enrugada (W)" if W_T >= 15 else "Firme (T)"
-
+    print(O_D,S_R,P_N,W_T)
     # Hidratação
     qtd_a = hidratação.count(1)
     qtd_b = hidratação.count(2)
@@ -349,7 +401,6 @@ def calcular_tipo_pele(respostas):
         'W x T': tipo_WT,
         'Hidratação': tipo_hidratacao
     }
-
 
 if __name__ == '__main__':
     app.run(debug=True)
