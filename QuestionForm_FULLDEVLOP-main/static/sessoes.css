@@ -1,0 +1,118 @@
+/* === Variáveis de cores e estilo === */
+:root {
+  --cor-fundo: #f9f9fb;
+  --cor-texto: #222;
+  --cor-subtexto: #555;
+  --cor-branco: #ffffff;
+  --cor-destaque: #f705ae;
+  --cor-destaque-hover: #f705ae;
+  --cor-radio-borda: #f705ae;
+  --sombra-card: 0 10px 30px rgba(59, 4, 52, 0.08);
+  --sombra-botao: 0 4px 10px rgba(66, 7, 49, 0.3);
+  --raio-borda: 16px;
+  --raio-botao: 8px;
+}
+
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  padding: 40px 20px;
+  line-height: 1.6;
+}
+
+.container, form {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--cor-branco);
+  padding: 30px 40px;
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-card);
+  border-left: 8px solid var(--cor-destaque);
+}
+
+/* Títulos */
+h2.title {
+  font-size: 24px;
+  color: var(--cor-destaque);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+h3.question {
+  font-size: 18px;
+  margin-top: 25px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Texto explicativo */
+p {
+  font-size: 15px;
+  color: var(--cor-subtexto);
+  margin-bottom: 20px;
+}
+
+/* Radio buttons */
+.radio {
+  margin: 12px 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.radio input[type="radio"] {
+  margin-right: 10px;
+  accent-color: var(--cor-radio-borda);
+  transform: scale(1.2);
+}
+
+.radio label {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.4;
+}
+
+/* Botão de envio */
+button[type="submit"] {
+  margin-top: 30px;
+  background-color: var(--cor-destaque);
+  color: var(--cor-branco);
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--raio-botao);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: var(--sombra-botao);
+}
+
+button[type="submit"]:hover {
+  background-color: var(--cor-destaque-hover);
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  body {
+    padding: 20px 10px;
+  }
+
+  .container, form {
+    padding: 25px 20px;
+  }
+
+  h2.title {
+    font-size: 20px;
+  }
+
+  h3.question {
+    font-size: 16px;
+  }
+}

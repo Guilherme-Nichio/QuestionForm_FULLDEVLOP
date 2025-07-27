@@ -1,0 +1,71 @@
+:root {
+    --bg-color: #f0f2f5;
+    --form-bg: #ffffff;
+    --text-color: #333;
+    --input-border: #ccc;
+    --button-bg: #ffc851;
+    --button-hover: #f7991e;
+    --link-color: #007bff;
+}
+
+body {
+   font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    background-color: var(--form-bg);
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--button-bg);
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+  button:hover {
+    background-color: var(--button-hover);
+}
+
+  a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+  a:hover {
+    text-decoration: underline;
+  }

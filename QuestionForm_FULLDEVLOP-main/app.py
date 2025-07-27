@@ -299,16 +299,14 @@ def admin():
     return render_template('admin.html', respostas=respostas)
 
 # essa parte gera o link dinamico ou seja mostra o link , ( alterar para aparecer em um campo unico )
-@app.route('/gerar-link')
-def gerar_link():
-    if 'user_id' not in session: # mesma coisa se nao tem usuario ele manda pra pagina de login
-        return redirect('/login')
-    form_id = str(uuid.uuid4()) # gera o id do formulario aleatoriamente com funcao de ID
-    with sqlite3.connect('db.sqlite3') as conn: # conecta com o banco de dados 
-        conn.execute("INSERT INTO formularios (id, user_id) VALUES (?, ?)", (form_id, session['user_id'])) # cria uma nova linha na tabela de formularios com o id do formulario e o id de quem criou o id do formulario
-    link = url_for('formulario_etapa1', form_id=form_id, _external=True) # aqui vai dizer que a pagina que o link vai levar é a etapa 1
-    return f"Link do formulário: <a href='{link}'>{link}</a>" # aqui ele retorna o valor do link , em formato de link mesmo  ( alterar para aparecer em um campo no dashboard)
-    
+
+@app.route('/api/gerar-link', methods=['POST'])
+def api_gerar_link():
+    form_id = str(uuid.uuid4())
+    with sqlite3.connect('db.sqlite3') as conn:
+        conn.execute("INSERT INTO formularios (id, user_id) VALUES (?, ?)", (form_id, session['user_id']))
+    link = url_for('formulario_etapa1', form_id=form_id, _external=True)
+    return jsonify({"link": link})
 
 
 # --- Formulário fixo ---

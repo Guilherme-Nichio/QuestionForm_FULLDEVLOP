@@ -1,139 +1,150 @@
-<h2>Formulário</h2>
-<form method="post">
-    <div class="part4">
-        <h2 class="title">
-            Seção 4 - Tendência a Rugas
-        </h2>
-        <p>Enrugada (W) x Firme (T)</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sessoes.css') }}">
+    <title>Document</title>
+</head>
+    <body>
+       
+        <form method="post">
+            <div class="part4">
+                <h2 class="title">
+                    Seção 4 - Tendência a Rugas
+                </h2>
+                <p>Enrugada (W) x Firme (T)</p>
 
-        <!-- Questao 1-->
-        <h3 class="question">
-            1. Você tem rugas no rosto?
-        </h3>
+                <!-- Questao 1-->
+                <h3 class="question">
+                    1. Você tem rugas no rosto?
+                </h3>
 
-        
-        <div class="radio">
-            <input type="radio" id="IDS4R1" name="S4R1" value="a">
-            <label for="IDS4R1">A. Não, mesmo quando faço expressões faciais (como sorrir ou franzir a testa).</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R2" name="S4R1" value="b">
-            <label for="IDS4R2">B. Somente ao sorrir, franzir a testa ou outras expressões faciais.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R3" name="S4R1" value="c">
-            <label for="IDS4R3">C. Sim, ao fazer expressões faciais e algumas mesmo sem movimento.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R4" name="S4R1" value="d">
-            <label for="IDS4R4">D. As rugas estão presentes mesmo quando não estou sorrindo, franzindo a testa ou fazendo outras expressões faciais.</label>
-        </div>
+                
+                <div class="radio">
+                    <input type="radio" id="IDS4R1" name="S4R1" value="a">
+                    <label for="IDS4R1">A. Não, mesmo quando faço expressões faciais (como sorrir ou franzir a testa).</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R2" name="S4R1" value="b">
+                    <label for="IDS4R2">B. Somente ao sorrir, franzir a testa ou outras expressões faciais.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R3" name="S4R1" value="c">
+                    <label for="IDS4R3">C. Sim, ao fazer expressões faciais e algumas mesmo sem movimento.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R4" name="S4R1" value="d">
+                    <label for="IDS4R4">D. As rugas estão presentes mesmo quando não estou sorrindo, franzindo a testa ou fazendo outras expressões faciais.</label>
+                </div>
 
-        <!-- Questao 2-->
-        <h3 class="question">
-            2. Você tem ou já teve o costume de se bronzear intencionalmente por mais de 2 semanas por ano (pegar sol nas férias por exemplo) ou já fez bronzeamento com luz artificial?
-        </h3>
-        <div class="radio">
-            <input type="radio" id="IDS4R5" name="S4R2" value="a">
-            <label for="IDS4R5">A. Nunca fiz isso.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R6" name="S4R2" value="b">
-            <label for="IDS4R6">B. Já tomei sol por mais de 2 semanas (ou fiz bronzeamento artificial), mas fiz isso menos de 5 vezes na vida.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R7" name="S4R2" value="c">
-            <label for="IDS4R7">C. Fiquei pegando sol nas férias (ou fiz bronzeamento artificial) por volta de 5 a 10 vezes na vida.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R8" name="S4R2" value="d">
-            <label for="IDS4R8">D. Já fiz um e/ou outro mais de 10 vezes na vida.</label>
-        </div>
+                <!-- Questao 2-->
+                <h3 class="question">
+                    2. Você tem ou já teve o costume de se bronzear intencionalmente por mais de 2 semanas por ano (pegar sol nas férias por exemplo) ou já fez bronzeamento com luz artificial?
+                </h3>
+                <div class="radio">
+                    <input type="radio" id="IDS4R5" name="S4R2" value="a">
+                    <label for="IDS4R5">A. Nunca fiz isso.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R6" name="S4R2" value="b">
+                    <label for="IDS4R6">B. Já tomei sol por mais de 2 semanas (ou fiz bronzeamento artificial), mas fiz isso menos de 5 vezes na vida.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R7" name="S4R2" value="c">
+                    <label for="IDS4R7">C. Fiquei pegando sol nas férias (ou fiz bronzeamento artificial) por volta de 5 a 10 vezes na vida.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R8" name="S4R2" value="d">
+                    <label for="IDS4R8">D. Já fiz um e/ou outro mais de 10 vezes na vida.</label>
+                </div>
 
-        <!-- Questao 3-->
-        <h3 class="question">
-            3.Qual idade as pessoas dizem ou você acha que aparenta?
-        </h3>
-        <div class="radio">
-            <input type="radio" id="IDS4R9" name="S4R3" value="a">
-            <label for="IDS4R9">A. De 1 a 5 anos mais nova que sua idade.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R10" name="S4R3" value="b">
-            <label for="IDS4R10">B. Exatamente sua idade.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R11" name="S4R3" value="c">
-            <label for="IDS4R11">C. De 1 a 5 anos a mais que sua idade.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R12" name="S4R3" value="d">
-            <label for="IDS4R12">D. Mais de 5 anos a mais que sua idade.</label>
-        </div>
+                <!-- Questao 3-->
+                <h3 class="question">
+                    3.Qual idade as pessoas dizem ou você acha que aparenta?
+                </h3>
+                <div class="radio">
+                    <input type="radio" id="IDS4R9" name="S4R3" value="a">
+                    <label for="IDS4R9">A. De 1 a 5 anos mais nova que sua idade.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R10" name="S4R3" value="b">
+                    <label for="IDS4R10">B. Exatamente sua idade.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R11" name="S4R3" value="c">
+                    <label for="IDS4R11">C. De 1 a 5 anos a mais que sua idade.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R12" name="S4R3" value="d">
+                    <label for="IDS4R12">D. Mais de 5 anos a mais que sua idade.</label>
+                </div>
 
-        <!-- Questao 4-->
-        <h3 class="question">
-            4. Durante a sua vida, quantos cigarros você já fumou (considerar também exposição passiva)?
-        </h3>
-        <div class="radio">
-            <input type="radio" id="IDS4R13" name="S4R4" value="a">
-            <label for="IDS4R13">A. Nenhum.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R14" name="S4R4" value="b">
-            <label for="IDS4R14">B. Poucos maços OU Nunca fumei, mas  sempre estive exposto passivamente ao cigarro (“fumante passivo”).</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R15" name="S4R4" value="c">
-            <label for="IDS4R15">C. Muitos ou vários maços.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R16" name="S4R4" value="d">
-            <label for="IDS4R16">D. Fumo todos os dias.</label>
-        </div>
+                <!-- Questao 4-->
+                <h3 class="question">
+                    4. Durante a sua vida, quantos cigarros você já fumou (considerar também exposição passiva)?
+                </h3>
+                <div class="radio">
+                    <input type="radio" id="IDS4R13" name="S4R4" value="a">
+                    <label for="IDS4R13">A. Nenhum.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R14" name="S4R4" value="b">
+                    <label for="IDS4R14">B. Poucos maços OU Nunca fumei, mas  sempre estive exposto passivamente ao cigarro (“fumante passivo”).</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R15" name="S4R4" value="c">
+                    <label for="IDS4R15">C. Muitos ou vários maços.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R16" name="S4R4" value="d">
+                    <label for="IDS4R16">D. Fumo todos os dias.</label>
+                </div>
 
-        <!-- Questao 5-->
-        <h3 class="question">
-            5. Qual a cor natural de sua pele? (Considere pele as áreas cobertas e sem bronzeado, nem autobronzeamento).
-        </h3>
-        <div class="radio">
-            <input type="radio" id="IDS4R17" name="S4R5" value="a">
-            <label for="IDS4R17">A. Negra.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R18" name="S4R5" value="b">
-            <label for="IDS4R18">B. Morena.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R19" name="S4R5" value="c">
-            <label for="IDS4R19">C. Clara.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R20" name="S4R5" value="d">
-            <label for="IDS4R20">D. Muito clara.</label>
-        </div>
+                <!-- Questao 5-->
+                <h3 class="question">
+                    5. Qual a cor natural de sua pele? (Considere pele as áreas cobertas e sem bronzeado, nem autobronzeamento).
+                </h3>
+                <div class="radio">
+                    <input type="radio" id="IDS4R17" name="S4R5" value="a">
+                    <label for="IDS4R17">A. Negra.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R18" name="S4R5" value="b">
+                    <label for="IDS4R18">B. Morena.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R19" name="S4R5" value="c">
+                    <label for="IDS4R19">C. Clara.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R20" name="S4R5" value="d">
+                    <label for="IDS4R20">D. Muito clara.</label>
+                </div>
 
-        <!-- Questao 6-->
-        <h3 class="question">
-            6. O quanto a questão do envelhecimento e rugas te incomodam?
-        </h3>
-        <div class="radio">
-            <input type="radio" id="IDS4R21" name="S4R6" value="a">
-            <label for="IDS4R21">A. Definitivamente não me incomoda.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R22" name="S4R6" value="b">
-            <label for="IDS4R22">B. Me incomoda um pouco, não é a minha questão principal.</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R23" name="S4R6" value="c">
-            <label for="IDS4R23">C. Me incomoda, é uma questão bem relevante pra mim!</label>
-        </div>
-        <div class="radio">
-            <input type="radio" id="IDS4R24" name="S4R6" value="d">
-            <label for="IDS4R24">D. Me incomoda muito, é a minha queixa principal!</label>
-        </div>
+                <!-- Questao 6-->
+                <h3 class="question">
+                    6. O quanto a questão do envelhecimento e rugas te incomodam?
+                </h3>
+                <div class="radio">
+                    <input type="radio" id="IDS4R21" name="S4R6" value="a">
+                    <label for="IDS4R21">A. Definitivamente não me incomoda.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R22" name="S4R6" value="b">
+                    <label for="IDS4R22">B. Me incomoda um pouco, não é a minha questão principal.</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R23" name="S4R6" value="c">
+                    <label for="IDS4R23">C. Me incomoda, é uma questão bem relevante pra mim!</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="IDS4R24" name="S4R6" value="d">
+                    <label for="IDS4R24">D. Me incomoda muito, é a minha queixa principal!</label>
+                </div>
 
-    </div>
-  <button type="submit">Enviar</button>
-</form>
+            </div>
+        <button type="submit">Enviar</button>
+        </form>
+    </body>
+</html>
+

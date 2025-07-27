@@ -1,0 +1,146 @@
+:root {
+  --bg-color: #f0f2f5;
+  --text-color: #333;
+  --card-bg: #ffffff;
+  --border-color: #ccc;
+  --button-bg: #28a745;
+  --button-hover: #218838;
+  --link-color: #007bff;
+  --highlight-bg: #f1f1f1;
+  --highlight-border: #007bff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 700px;
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+}
+
+h2, h3 {
+  color: var(--text-color);
+}
+
+.copy-button {
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+  background-color: var(--button-hover);
+}
+
+.input-pesquisa {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Cartão de resposta */
+.resposta-card {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cabeçalho clicável */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 15px 20px;
+  font-weight: 600;
+  font-size: 16px;
+  background-color: var(--highlight-bg);
+  color: var(--text-color);
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.card-header:hover {
+  background-color: #d8eafd;
+}
+
+/* Setinha */
+.seta {
+  transition: transform 0.3s ease;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+/* Corpo do cartão (respostas + resultados) */
+.card-body {
+  padding: 15px 20px;
+  display: none; /* inicia fechado */
+}
+
+.respostas ul {
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.respostas li {
+  margin-bottom: 6px;
+}
+
+.resultados {
+  background-color: var(--highlight-bg);
+  border-left: 4px solid var(--highlight-border);
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 15px;
+  font-size: 15px;
+  color: var(--text-color);
+}
+
+.links {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.links a {
+  text-decoration: none;
+  color: var(--link-color);
+  margin: 0 10px;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .copy-button {
+    width: 100%;
+  }
+}

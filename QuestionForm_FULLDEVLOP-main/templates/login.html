@@ -1,7 +1,22 @@
-<h2>Login</h2>
-<form method="post">
-  Email: <input type="email" name="email"><br>
-  Senha: <input type="password" name="senha"><br>
-  <button type="submit">Entrar</button>
-</form>
-<a href="/register">Criar conta</a>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+  
+  <form method="post">
+    <h2>Escola da pele</h2>
+    <label>Email:</label>
+    <input type="email" name="email" required><br>
+
+    <label>Senha:</label>
+    <input type="password" name="senha" required><br>
+
+    <button type="submit">Entrar</button>
+  </form>
+  
+</body>
+</html>
