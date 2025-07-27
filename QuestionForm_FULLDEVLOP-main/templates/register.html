@@ -1,7 +1,24 @@
-<h2>Cadastro</h2>
-<form method="post">
-  telefone: <input type="telefone" name="telefone"><br>
-  email: <input type="email" name="email"><br>
-  <button type="submit">Registrar</button>
-</form>
-<a href="/admin/usuarios">Usuarios</a>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastro</h2>
+    <form method="post">
+      <label>Telefone:</label>
+      <input type="telefone" name="telefone" required>
+      
+      <label>Email:</label>
+      <input type="email" name="email" required>
+
+      <button type="submit">Registrar</button>
+    </form>
+
+    <a href="/admin/usuarios">Usuários</a>
+  </div>
+</body>
+</html>

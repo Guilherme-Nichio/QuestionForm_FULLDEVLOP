@@ -1,33 +1,17 @@
-<h2>Painel do administrador</h2>
-<a href="/gerar-link">Gerar novo link de formulário</a><br><br>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel do Administrador</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h2>Painel do administrador</h2>
 
-<h3>Respostas recebidas:</h3>
-
-{% if respostas %}
-  {% for r in respostas %}
-    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
-      <strong>Formulário ID:</strong> {{ r[1] }}<br>
-      <strong>Nome:</strong> {{ r[2] }}<br>
-      <strong>Telefone:</strong> {{ r[3] }}<br><br>
-
-      <strong>Respostas:</strong><br>
-      <ul>
-        {% for i in range(4, 26) %}
-          <li>Pergunta {{ i - 3 }}: {{ r[i] }}</li>
-        {% endfor %}
-      </ul>
-
-      <strong>Resultado:</strong><br>
-      O x D: {{ r[26] }}<br>
-      S x R: {{ r[27] }}<br>
-      P x N: {{ r[28] }}<br>
-      W x T: {{ r[29] }}<br>
-    </div>
-  {% endfor %}
-{% else %}
-  <p>Nenhuma resposta encontrada ainda.</p>
-{% endif %}
-
-<a href="/admin/cadastrar">Cadastrar usuario</a> |
-<a href="/logout">Sair</a> |
-<a href="/trocar-senha">Trocar Senha</a><br><br>
+    <a href="/admin/cadastrar">Cadastrar usuário</a>
+    <a href="/trocar-senha">Trocar Senha</a>
+    <a href="/logout">Sair</a>
+  </div>
+</body>
+</html>

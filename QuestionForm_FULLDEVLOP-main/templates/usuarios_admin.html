@@ -1,31 +1,49 @@
-<h2>Usuários Cadastrados</h2>
-<a href="/admin/cadastrar">Novo Usuário</a><br>
-Filtrar:
-<a href="/admin/usuarios?filtro=todos">Todos</a> |
-<a href="/admin/usuarios?filtro=ativos">Ativos</a> |
-<a href="/admin/usuarios?filtro=inativos">Inativos</a><br><br>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Usuários Cadastrados</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='usuarios.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h2>Usuários Cadastrados</h2>
+    <a href="/admin/cadastrar">Novo Usuário</a><br><br>
+    Filtrar:
+    <a href="/admin/usuarios?filtro=todos">Todos</a> |
+    <a href="/admin/usuarios?filtro=ativos">Ativos</a> |
+    <a href="/admin/usuarios?filtro=inativos">Inativos</a><br><br>
 
-<table border="1" cellpadding="5">
-  <tr>
-    <th>Email</th>
-    <th>Tipo</th>
-    <th>Status</th>
-    <th>Expiração</th>
-    <th>Respostas</th>
-    <th>Ações</th>
-  </tr>
-  {% for u in usuarios %}
-    <tr>
-      <td>{{ u[1] }}</td>
-      <td>{{ u[2] }}</td>
-      <td>{{ 'Ativo' if u[3] == 1 else 'Inativo' }}</td>
-      <td>{{ u[4] }}</td>
-      <td>{{ u[5] }}</td>
-      <td>
-        <a href="/admin/usuario/{{ u[0] }}/toggle">
-          {{ 'Desativar' if u[3] == 1 else 'Ativar' }}
-        </a>
-      </td>
-    </tr>
-  {% endfor %}
-</table>
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Tipo</th>
+          <th>Status</th>
+          <th>Expiração</th>
+          <th>Respostas</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios %}
+        <tr>
+          <td data-label="Email">{{ u[1] }}</td>
+          <td data-label="Tipo">{{ u[2] }}</td>
+          <td data-label="Status" class="status-{{ 'ativo' if u[3] == 1 else 'inativo' }}">
+            {{ 'Ativo' if u[3] == 1 else 'Inativo' }}
+          </td>
+          <td data-label="Expiração">{{ u[4] }}</td>
+          <td data-label="Respostas">{{ u[5] }}</td>
+          <td data-label="Ações">
+            <a href="/admin/usuario/{{ u[0] }}/toggle">
+              {{ 'Desativar' if u[3] == 1 else 'Ativar' }}
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

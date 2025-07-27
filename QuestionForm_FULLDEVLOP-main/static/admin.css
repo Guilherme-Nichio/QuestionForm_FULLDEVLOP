@@ -1,0 +1,65 @@
+:root {
+  --cor-fundo: #f5f7fa;
+  --cor-texto: #333;
+  --cor-link: #0056b3;
+  --cor-link-hover: #003d80;
+  --cor-botao: #007bff;
+  --cor-botao-hover: #0056b3;
+  --cor-borda: #ccc;
+  --cor-fundo-container: #ffffff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  background-color: var(--cor-fundo-container);
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  margin-top: 3rem;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--cor-texto);
+}
+
+a {
+  text-decoration: none;
+  color: var(--cor-link);
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0.2rem;
+  display: inline-block;
+}
+
+a:hover {
+  background-color: var(--cor-link-hover);
+  color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  a {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+}
