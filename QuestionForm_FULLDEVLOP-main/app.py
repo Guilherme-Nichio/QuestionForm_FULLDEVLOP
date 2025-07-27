@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3, uuid
-
+from datetime import datetime, timedelta
+import random
+import string
+import smtplib  # ou outro serviço de e-mail
+from openpyxl import load_workbook
 app = Flask(__name__)
 app.secret_key = 'segredo-supersecreto'
 
@@ -11,7 +15,12 @@ def init_db():
         c.execute('''CREATE TABLE IF NOT EXISTS usuarios (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         email TEXT UNIQUE NOT NULL,
-                        senha TEXT NOT NULL)''')
+                        senha TEXT NOT NULL,
+                        telefone TEXT NOT NULL,
+                        tipo TEXT DEFAULT 'normal',
+                        ativo INTEGER DEFAULT 1,
+                        data_expiracao TEXT
+                  )''')
         c.execute('''CREATE TABLE IF NOT EXISTS formularios (
                         id TEXT PRIMARY KEY,
                         user_id INTEGER,
@@ -58,6 +67,137 @@ def init_db():
 
 init_db()
 
+## essa funcao aqui em baico cria um adiminsitradr no banco de dados ( caso nao exista)
+def criar_admin():
+    with sqlite3.connect('db.sqlite3') as conn:
+        c = conn.cursor()
+        # Verifica se já existe um admin
+        admin = c.execute("SELECT * FROM usuarios WHERE tipo='admin'").fetchone()
+        if not admin:
+            # Cria admin padrão
+            senha_hash = generate_password_hash("admin123")  # senha padrão
+            c.execute("INSERT INTO usuarios (email, senha, telefone, tipo) VALUES (?, ?, ?,?)",
+                      ("admin@admin.com", senha_hash, "00000000","admin"))
+            conn.commit()
+
+# aqui é o redirecionamento para o campo de cadastro de pessoas permitidas.
+@app.route('/admin/cadastrar', methods=['GET', 'POST'])
+def cadastrar_usuario():
+    if session.get('tipo') != 'admin':
+        return redirect('/login')
+
+    if request.method == 'POST':
+        telefone = request.form['telefone']
+        email = request.form['email']
+
+        # Gera senha padrão
+        senha_gerada = 'ENES2025'
+        senha_hash = generate_password_hash(senha_gerada)
+
+        # Calcula validade (1 ano)
+        validade = (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%d')
+
+        # Insere no banco
+        with sqlite3.connect('db.sqlite3') as conn:
+            conn.execute("INSERT INTO usuarios (email,telefone, senha, tipo, ativo, data_expiracao) VALUES (?,?, ?, ?, ?, ?)",
+                         (email,telefone, senha_hash, 'normal', 1, validade))
+            conn.commit()
+
+        # Envia e-mail (simplificado)
+        enviar_email(email, senha_gerada)
+
+        return redirect('/admin/usuarios')
+
+    return render_template('register.html')
+#funcao para cadastrar em massa
+
+
+@app.route('/admin/cadastrar-em-massa', methods=['GET', 'POST'])
+def cadastrar_em_massa():
+    if session.get('tipo') != 'admin':
+        return redirect('/login')
+
+    if request.method == 'POST':
+        arquivo = request.files.get('arquivo')
+
+        if not arquivo or not arquivo.filename.endswith('.xlsx'):
+            return "Arquivo inválido. Envie um .xlsx com colunas email e telefone."
+
+        try:
+            wb = load_workbook(arquivo)
+            ws = wb.active
+        except Exception as e:
+            return f"Erro ao abrir o Excel: {e}"
+
+        usuarios_adicionados = []
+
+        for i, row in enumerate(ws.iter_rows(min_row=2, values_only=True), start=2):
+            email = row[0]
+            telefone = row[1]
+
+            if not email or not telefone:
+                continue
+
+            senha = 'ENES2025'
+            senha_hash = generate_password_hash(senha)
+            validade = (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%d')
+
+            try:
+                with sqlite3.connect('db.sqlite3') as conn:
+                    conn.execute('''
+                        INSERT INTO usuarios (email, telefone, senha, tipo, ativo, data_expiracao)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    ''', (email, telefone, senha_hash, 'normal', 1, validade))
+                    conn.commit()
+                    usuarios_adicionados.append(email)
+            except sqlite3.IntegrityError:
+                continue
+
+        return f"{len(usuarios_adicionados)} usuários cadastrados com sucesso."
+
+    return render_template('cadastrar_em_massa.html')
+
+
+# funcao que mostra os usuarios cadastrados
+@app.route('/admin/usuarios')
+def listar_usuarios():
+    if session.get('tipo') != 'admin':
+        return redirect('/login')
+
+    filtro = request.args.get('filtro', 'todos')  # ativos, inativos, todos
+    query = "SELECT u.id, u.email, u.tipo, u.ativo, u.data_expiracao, COUNT(r.id) FROM usuarios u LEFT JOIN formularios f ON f.user_id = u.id LEFT JOIN respostas r ON r.formulario_id = f.id"
+    cond = []
+    if filtro == 'ativos':
+        query += " WHERE u.ativo=1"
+    elif filtro == 'inativos':
+        query += " WHERE u.ativo=0"
+
+    query += " GROUP BY u.id ORDER BY u.email"
+
+    with sqlite3.connect('db.sqlite3') as conn:
+        usuarios = conn.execute(query).fetchall()
+
+    return render_template('usuarios_admin.html', usuarios=usuarios, filtro=filtro)
+
+@app.route('/admin/usuario/<int:user_id>/toggle')
+def toggle_usuario(user_id):
+    if session.get('tipo') != 'admin':
+        return redirect('/login')
+
+    with sqlite3.connect('db.sqlite3') as conn:
+        status_atual = conn.execute("SELECT ativo FROM usuarios WHERE id=?", (user_id,)).fetchone()
+        novo_status = 0 if status_atual[0] == 1 else 1
+        conn.execute("UPDATE usuarios SET ativo=? WHERE id=?", (novo_status, user_id))
+        conn.commit()
+
+    return redirect('/admin/usuarios')
+## funcao que envia o email para a pessoa
+def enviar_email(destinatario, senha):
+    mensagem = f"Olá! Seu acesso foi criado.\nLogin: {destinatario}\nSenha: {senha}"
+    print(">> Email enviado para:", destinatario)
+    print(mensagem)
+    # Aqui você colocaria o envio real com SMTP ou outro serviço
+
 # --- Autenticação ---
 ## Essa função faz o registro do novo usuario caso o mesmo não exista.
 @app.route('/register', methods=['GET', 'POST'])
@@ -83,7 +223,12 @@ def login():
             user = conn.execute("SELECT * FROM usuarios WHERE email=?", (email,)).fetchone() # ele seleciona a todas as coluas onde o email é igual ao email que a pessoa inseriu
             if user and check_password_hash(user[2], senha): ## agora se caso exista um usuario , ou seja nao deu erro ele chega a senha. ele desincripta e ve
                 session['user_id'] = user[0] # se caso a senha coincidir ele redireciona para  a pagina principal, no caso o dashboard
-                return redirect('/dashboard') # redireciona para a funcao de dashboard
+                session['tipo'] = user[4]
+                print(user[4])
+                if user[4] == 'admin':
+                    return redirect('/admin')
+                else:
+                    return redirect('/dashboard') # redireciona para a funcao de dashboard
         return "Login inválido." # se nao ele me fala que o login ta invalido 
     return render_template('login.html') # rendeniza a pagina de login
 
@@ -138,6 +283,20 @@ def dashboard():
             respostas.extend(r)
     return render_template('dashboard.html', respostas=respostas)
 
+#Caso o administrador faça o login ele entra aqui
+@app.route('/admin')
+def admin():
+    if 'user_id' not in session: ## caso a sessao esteja limpa , ou seja nao existir um usuario ele nao vai rendenizar a pagina e vai para a pagina de login
+        return redirect('/login')
+    with sqlite3.connect('db.sqlite3') as conn: # ele abre uma sessao no banco de dados e seleciona a coluna ID dos formulario , onde o user ID corresponde ao usuario da sessao
+        formularios = conn.execute("SELECT id FROM formularios").fetchall()
+   
+   #entender melhor o que essa parte faz
+        respostas = [] #
+        for f in formularios:
+            r = conn.execute("SELECT * FROM respostas WHERE formulario_id=?", (f[0],)).fetchall()
+            respostas.extend(r)
+    return render_template('admin.html', respostas=respostas)
 
 # essa parte gera o link dinamico ou seja mostra o link , ( alterar para aparecer em um campo unico )
 @app.route('/gerar-link')
@@ -403,4 +562,5 @@ def calcular_tipo_pele(respostas):
     }
 
 if __name__ == '__main__':
+    criar_admin()
     app.run(debug=True)

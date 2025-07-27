@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro em Massa</title>
+</head>
+<body>
+    <h1>Cadastrar Usuários em Massa</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label>Enviar arquivo Excel (.xlsx):</label><br>
+        <input type="file" name="arquivo" accept=".xlsx" required><br><br>
+        <input type="submit" value="Cadastrar Todos">
+    </form>
+    <br>
+    <a href="/admin/usuarios">Voltar</a>
+</body>
+</html>

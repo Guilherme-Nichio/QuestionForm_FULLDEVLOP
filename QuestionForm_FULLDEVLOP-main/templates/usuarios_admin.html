@@ -1,0 +1,31 @@
+<h2>Usuários Cadastrados</h2>
+<a href="/admin/cadastrar">Novo Usuário</a><br>
+Filtrar:
+<a href="/admin/usuarios?filtro=todos">Todos</a> |
+<a href="/admin/usuarios?filtro=ativos">Ativos</a> |
+<a href="/admin/usuarios?filtro=inativos">Inativos</a><br><br>
+
+<table border="1" cellpadding="5">
+  <tr>
+    <th>Email</th>
+    <th>Tipo</th>
+    <th>Status</th>
+    <th>Expiração</th>
+    <th>Respostas</th>
+    <th>Ações</th>
+  </tr>
+  {% for u in usuarios %}
+    <tr>
+      <td>{{ u[1] }}</td>
+      <td>{{ u[2] }}</td>
+      <td>{{ 'Ativo' if u[3] == 1 else 'Inativo' }}</td>
+      <td>{{ u[4] }}</td>
+      <td>{{ u[5] }}</td>
+      <td>
+        <a href="/admin/usuario/{{ u[0] }}/toggle">
+          {{ 'Desativar' if u[3] == 1 else 'Ativar' }}
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
